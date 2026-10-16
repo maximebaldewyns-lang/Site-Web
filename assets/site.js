@@ -380,6 +380,7 @@
       if (url.origin !== location.origin) return; // external sites, mailto:, tel:
       if (url.pathname === location.pathname && url.search === location.search) return; // same page / #anchor
       e.preventDefault();
+      body.classList.remove("menu-open"); // close the mobile menu while the content fades out
       body.classList.add("leaving");
       setTimeout(() => { location.href = url.href; }, 300);
     });

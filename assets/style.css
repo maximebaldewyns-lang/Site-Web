@@ -214,11 +214,12 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 60px; }
 .site-footer a:hover { color: var(--text); }
 .site-footer .links { display: flex; gap: 18px; }
 
-/* ---------- Page transitions: 0.3 s fade in on load, fade out before leaving (site.js) ---------- */
+/* ---------- Page transitions: 0.3 s fade in on load, fade out before leaving (site.js) ----------
+   Only the content fades: the header (name + menu) stays in place from one page to the next. */
 
 /* "backwards" (not "both"): once the fade-in ends it releases opacity, so the fade-out can run */
-body { animation: page-in .3s ease backwards; }
-body.leaving { opacity: 0; transition: opacity .3s ease; }
+main, .site-footer { animation: page-in .3s ease backwards; }
+body.leaving main, body.leaving .site-footer { opacity: 0; transition: opacity .3s ease; }
 @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* ---------- Fade in ---------- */
@@ -263,8 +264,8 @@ body.leaving { opacity: 0; transition: opacity .3s ease; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body { animation: none; }
-  body.leaving { transition: none; }
+  main, .site-footer { animation: none; }
+  body.leaving main, body.leaving .site-footer { transition: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .tile img { transition: none; }
 }
