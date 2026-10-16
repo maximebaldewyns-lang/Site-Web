@@ -92,6 +92,18 @@ def shorten(text, limit=158):
     return cut + "…"
 
 
+def postal_address(where):
+    """'Brussels, Belgium' -> PostalAddress with city and country code."""
+    parts = [s.strip() for s in where.split(",") if s.strip()]
+    if not parts:
+        return None
+    address = {"@type": "PostalAddress"}
+    if len(parts) > 1:
+        address["addressLocality"] = parts[0]
+    address["addressCountry"] = {"belgium": "BE", "france": "FR"}.get(parts[-1].lower(), parts[-1])
+    return address
+
+
 def main():
     c = load_content()
     site, categories, projects, films = c["SITE"], c["CATEGORIES"], c["PROJECTS"], c["FILMS"]
@@ -113,7 +125,7 @@ def main():
         "jobTitle": ", ".join(site.get("titles") or []),
         "email": f"mailto:{site['email']}" if site.get("email") else None,
         "image": abs_url(site["photo"]) if site.get("photo") else None,
-        "address": {"@type": "PostalAddress", "addressCountry": "BE"} if where.lower() == "belgium" else None,
+        "address": postal_address(where),
         "sameAs": socials or None,
     }
     person = {k: v for k, v in person.items() if v}
@@ -122,8 +134,13 @@ def main():
         if p.get("description"):
             return shorten(p["description"])
         head = p["title"] + (f" – {p['client']}" if p.get("client") else "")
-        kind = KIND.get(p.get("category"), "Video")
-        return shorten(f"{head}. {kind} {role_verbs(p.get('role'))} by {name}, {jobs}{based}.")
+        verbs = role_verbs(p.get("role"))
+        lead = f"{head}. {KIND.get(p.get('category'), 'Video')} {verbs} by {name}"
+        where_tail = f",{based}." if based else "."
+        # Drop job titles, then the kind of film, before dropping the city: the location matters more for search.
+        options = (lead + f", {jobs}{based}.", lead + f", director and DOP{based}.", lead + where_tail,
+                   f"{head}. {verbs[:1].upper() + verbs[1:]} by {name}{where_tail}")
+        return next((o for o in options if len(o) <= 158), shorten(options[-1]))
 
     def page(path, *, title, description, image, data, h1="", jsonld=None, noindex=False, noscript=""):
         head_extra = []

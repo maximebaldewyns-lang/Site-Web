@@ -49,7 +49,7 @@ const SITE = {
   titles: ["Director", "DOP", "Camera Operator", "Editor"],
   email: "contact@maximebaldewyns.com",
   phone: "",
-  location: "Belgium",
+  location: "Brussels, Belgium",
   url: "https://maximebaldewyns.com",
   googleVerification: "yjaRomi900eRCdcXmzLBTBaO9Q9WLAX5LVMBJV9R9tA",   // code from Google Search Console ("HTML tag" method), e.g. "AbC123…"
   reel: "",   // showreel link (Vimeo or YouTube); the "reel" tab appears once it is filled
