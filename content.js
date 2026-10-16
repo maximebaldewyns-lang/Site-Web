@@ -226,6 +226,15 @@ const PROJECTS = [
     video: "https://www.youtube.com/watch?v=Kn1q0F4GRmU",
     cover: "images/jean-paul-lespagnard-interview.jpg",
   },
+  {
+    id: "ethglobal-brussels",
+    title: "ETHGlobal Brussels",
+    client: "Hackathon",
+    category: "events",
+    role: "DOP & Camera Operator",
+    video: "https://www.youtube.com/watch?v=S4zipT09Sbw",
+    cover: "images/ethglobal-brussels.jpg",
+  },
 ];
 
 /*
