@@ -38,7 +38,7 @@
  */
 
 const SITE = {
-  theme: "dark",   // "dark" = black background, "light" = white background
+  theme: "dark-brass",  // "dark" = black, "dark-brass" = black + brass details, "night" = blue-black, "night-brass" = blue-black + brass details, "light" = white
   name: "Maxime Baldewyns",
   titles: ["Director", "DOP", "Camera Operator", "Editor"],
   email: "contact@maximebaldewyns.com",

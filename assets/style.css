@@ -1,4 +1,4 @@
-/* Colors: light theme by default, dark theme when content.js sets SITE.theme = "dark" */
+/* Colors: light theme by default; content.js SITE.theme = "dark" or "night" switches them */
 :root {
   --bg: #ffffff;
   --text: #111111;
@@ -6,6 +6,10 @@
   --tile-bg: #eeeeee;      /* behind images while they load */
   --placeholder: #f2f2f2;  /* empty photo / poster frames */
   --line: #cccccc;         /* underline of text links */
+  --accent: currentColor;  /* underline of the active menu item */
+  --nav-active: currentColor;  /* text color of the active menu item (currentColor = unchanged) */
+  --nav-hover: var(--muted);   /* menu item under the mouse */
+  --link-hover: var(--text);   /* text links under the mouse */
   --gutter: 32px;
   --gap: 18px;
   --max: 1400px;
@@ -20,6 +24,48 @@
   --placeholder: #151515;
   --line: #444444;
   color-scheme: dark;
+}
+
+/* Night: black with a slight blue depth. Details stay off-white ("night")
+   or take a warm brass touch ("night-brass"), so the images keep their own colors */
+:root[data-theme="night"],
+:root[data-theme="night-brass"] {
+  --bg: #0a0d14;
+  --text: #e6e8ee;
+  --muted: #8a90a0;
+  --tile-bg: #121725;
+  --placeholder: #11151f;
+  --line: #3a4152;
+  --accent: #e6e8ee;
+  --nav-hover: #8a90a0;
+  --link-hover: #8a90a0;
+  color-scheme: dark;
+}
+/* Brass details, on the blue-black ("night-brass") or the neutral black ("dark-brass") background:
+   no underline under the active menu item, the item itself turns brass */
+:root[data-theme="dark-brass"] {
+  --bg: #0b0b0b;
+  --text: #e8e8e8;
+  --muted: #8a8a8a;
+  --tile-bg: #161616;
+  --placeholder: #151515;
+  color-scheme: dark;
+}
+:root[data-theme="night-brass"],
+:root[data-theme="dark-brass"] {
+  --line: #5a4a2c;
+  --accent: transparent;
+  --nav-active: #c9a86a;
+  --nav-hover: #e3c993;
+  --link-hover: #e3c993;
+}
+/* White background + brass: a darker brass, so it stays readable on white */
+:root[data-theme="light-brass"] {
+  --line: #e0d2b4;
+  --accent: transparent;
+  --nav-active: #9a7638;
+  --nav-hover: #b8924f;
+  --link-hover: #9a7638;
 }
 
 * { box-sizing: border-box; }
@@ -45,7 +91,7 @@ img { display: block; max-width: 100%; }
   background: var(--bg);
   max-width: var(--max);
   margin: 0 auto;
-  padding: 40px var(--gutter) 34px;
+  padding: 40px var(--gutter) 16px;  /* small bottom: the sticky header covers less of the videos when scrolling */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,16 +99,17 @@ img { display: block; max-width: 100%; }
 }
 
 .brand { line-height: 1.35; }
-.brand-name { font-size: 15px; letter-spacing: 0.03em; text-transform: lowercase; }
+.brand-name { font-size: 18px; letter-spacing: 0.02em; text-transform: lowercase; }
 .brand-titles { font-size: 11px; letter-spacing: 0.04em; color: var(--muted); text-transform: lowercase; }
 
 .nav { display: flex; gap: 34px; font-size: 14px; letter-spacing: 0.06em; text-transform: lowercase; }
 .nav a { position: relative; padding: 2px 0; transition: color .2s; }
-.nav a:hover { color: var(--muted); }
+.nav a:hover { color: var(--nav-hover); }
+.nav a.active { color: var(--nav-active); }
 .nav a.active::after {
   content: "";
   position: absolute; left: 0; right: 0; bottom: -3px;
-  height: 1px; background: currentColor;
+  height: 1px; background: var(--accent);
 }
 
 .menu-toggle {
@@ -74,7 +121,7 @@ img { display: block; max-width: 100%; }
 
 /* ---------- Project list ---------- */
 
-main { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 60px; }
+main { max-width: var(--max); margin: 0 auto; padding: 18px var(--gutter) 60px; }  /* top padding keeps the gap under the header at the top of the page */
 
 /* 6-column grid; each tile's position (--col / --row) is computed in site.js:
    full = 6 columns, big = 4 columns x 2 rows, small = 2 columns, half = 3 columns */
@@ -174,7 +221,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 60px; }
 
 .pager { display: flex; justify-content: space-between; font-size: 13px; margin-top: 50px; text-transform: lowercase; }
 .pager a { color: var(--muted); transition: color .2s; }
-.pager a:hover { color: var(--text); }
+.pager a:hover { color: var(--link-hover); }
 
 /* ---------- Text pages ---------- */
 
@@ -185,7 +232,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 60px; }
 .contact-list { list-style: none; padding: 0; margin: 30px 0 0; }
 .contact-list li { margin-bottom: 8px; }
 .contact-list a { border-bottom: 1px solid var(--line); transition: border-color .2s; }
-.contact-list a:hover { border-color: var(--text); }
+.contact-list a:hover { border-color: var(--link-hover); color: var(--link-hover); }
 
 /* ---------- About me ---------- */
 
@@ -200,7 +247,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 60px; }
 .about-photo img { width: 100%; height: 100%; object-fit: cover; }
 .about-text { padding-top: 0; }
 .about-text a { border-bottom: 1px solid var(--line); transition: border-color .2s; }
-.about-text a:hover { border-color: var(--text); }
+.about-text a:hover { border-color: var(--link-hover); color: var(--link-hover); }
 
 /* ---------- Footer ---------- */
 
@@ -211,7 +258,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 60px; }
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   text-transform: lowercase;
 }
-.site-footer a:hover { color: var(--text); }
+.site-footer a:hover { color: var(--link-hover); }
 .site-footer .links { display: flex; gap: 18px; }
 
 /* ---------- Page transitions: 0.3 s fade in on load, fade out before leaving (site.js) ----------
@@ -231,7 +278,8 @@ body.leaving main, body.leaving .site-footer { opacity: 0; transition: opacity .
 
 @media (max-width: 860px) {
   :root { --gutter: 16px; --gap: 12px; }
-  .site-header { padding: 22px var(--gutter) 20px; }
+  .site-header { padding: 22px var(--gutter) 12px; }
+  main { padding-top: 8px; }
   .menu-toggle { display: block; }
   .nav {
     position: fixed; inset: 70px 0 0 0;

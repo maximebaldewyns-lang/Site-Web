@@ -9,6 +9,10 @@
   const esc = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const categoryLabel = (id) => (CATEGORIES.find((c) => c.id === id) || {}).label || "";
 
+  // Phone browser bar takes the background color of the current theme
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) themeColor.content = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+
   /* ---------- Header & footer ---------- */
 
   function renderHeader() {
