@@ -25,7 +25,8 @@
  *    client    client / artist / brand (optional)
  *    category  one of: "music-videos", "corporate", "events", "films"
  *    role      your role on the project, e.g. "Director & DOP"
- *    video     Vimeo or YouTube link (optional; leave "" if none yet)
+ *    video     YouTube, Vimeo or public Facebook video/reel link (optional; leave "" if none yet).
+ *              The hover preview only works with YouTube (or a "preview" clip, see below).
  *    cover     cover image: path to a file in the images/ folder, e.g. "images/my-project.jpg"
  *    credits   list of extra credits shown on the project page (optional)
  *    stills    list of extra images shown under the video (optional)
@@ -215,6 +216,15 @@ const PROJECTS = [
     role: "Director, DOP & Editor",
     video: "https://www.youtube.com/watch?v=SrCy4lrNBPk",
     cover: "images/brosella-bxl-ldn-interplay.jpg",
+  },
+  {
+    id: "bxl-tour-2026",
+    title: "BXL Tour 2026",
+    client: "Aftermovie",
+    category: "events",
+    role: "Camera Operator",
+    video: "https://www.facebook.com/reel/1328833775896959",
+    cover: "images/bxl-tour-2026.jpg",
   },
 ];
 

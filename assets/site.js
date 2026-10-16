@@ -69,6 +69,9 @@
     if (m) return `https://player.vimeo.com/video/${m[1]}?${m[2] ? "h=" + m[2] + "&" : ""}title=0&byline=0&portrait=0&dnt=1`;
     const yt = youtubeId(url);
     if (yt) return `https://www.youtube-nocookie.com/embed/${yt}?rel=0&modestbranding=1`;
+    // Facebook video or reel (public): facebook.com/reel/ID, /videos/ID or /watch/?v=ID
+    const fb = url.match(/facebook\.com\/(?:reel\/|watch\/?\?v=|[^/]+\/videos\/(?:[^/]+\/)?)(\d+)/);
+    if (fb) return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(`https://www.facebook.com/watch/?v=${fb[1]}`)}&show_text=false&width=1280`;
     return "";
   }
 
