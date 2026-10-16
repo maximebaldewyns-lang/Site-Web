@@ -40,7 +40,7 @@
 const SITE = {
   theme: "dark",   // "dark" = black background, "light" = white background
   name: "Maxime Baldewyns",
-  titles: ["Director", "DOP", "Camera Operator"],
+  titles: ["Director", "DOP", "Camera Operator", "Editor"],
   email: "contact@maximebaldewyns.com",
   phone: "",
   location: "Belgium",
