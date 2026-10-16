@@ -234,6 +234,15 @@ main { max-width: var(--max); margin: 0 auto; padding: 18px var(--gutter) 60px; 
 .contact-list a { border-bottom: 1px solid var(--line); transition: border-color .2s; }
 .contact-list a:hover { border-color: var(--link-hover); color: var(--link-hover); }
 
+.text-link { border-bottom: 1px solid var(--line); transition: border-color .2s, color .2s; }
+.text-link:hover { border-color: var(--link-hover); color: var(--link-hover); }
+
+/* Read by search engines and screen readers, not shown on screen */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
 /* ---------- About me ---------- */
 
 .about {

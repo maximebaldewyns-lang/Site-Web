@@ -7,8 +7,14 @@ Site statique (HTML/CSS/JS), sans base de données ni abonnement.
 **Tout se modifie dans un seul fichier : `content.js`.**
 
 - `SITE` : nom, titres, e-mail, téléphone, lien du showreel, réseaux sociaux, texte de présentation.
-  - `theme: "dark"` = fond noir, `theme: "light"` = fond blanc (tout le site change d'un coup).
+  - `theme` : `"dark-brass"` (fond noir + laiton, actuel), `"dark"`, `"night"`, `"night-brass"`, `"light"`.
 - `PROJECTS` : la liste des projets, dans l'ordre d'affichage sur la page d'accueil.
+
+**⚠️ Après chaque modification de `content.js`, régénère les pages** (titres, descriptions Google, sitemap, page de chaque projet) :
+
+```bash
+cd "/Volumes/LaCie/Site Web" && python3 tools/build.py
+```
 
 ### Ajouter un projet
 
@@ -22,8 +28,10 @@ Site statique (HTML/CSS/JS), sans base de données ni abonnement.
   client: "Nike",
   category: "corporate",                // music-videos | corporate | events | films
   role: "Director & DOP",
-  video: "https://vimeo.com/123456789", // lien Vimeo ou YouTube
+  video: "https://vimeo.com/123456789", // lien Vimeo, YouTube ou Facebook
   cover: "images/nike-run.jpg",
+  date: "2025-06-12",                   // date de publication (facultatif, utile pour Google)
+  description: "…",                     // 1-2 phrases pour Google (facultatif, sinon écrite automatiquement)
   credits: ["Production: XYZ", "Agency: ABC"],
   stills: ["images/nike-run-1.jpg"]     // facultatif
 },
@@ -88,9 +96,12 @@ Limite de YouTube : au tout premier survol, l'aperçu met environ 3 à 4 seconde
 |---|---|
 | `index.html` | tous les projets |
 | `music-videos.html`, `corporate.html`, `events.html`, `films.html` | projets filtrés par catégorie |
-| `project.html?id=...` | page d'un projet (vidéo, crédits, photogrammes) |
-| `reel.html` | showreel |
-| `contact.html` | présentation et contact |
+| `work/<id>/` | page d'un projet (vidéo, crédits), une par projet |
+| `about.html`, `contact.html`, `reel.html` | à propos, contact, showreel |
+| `404.html` | page « introuvable » |
+| `sitemap.xml`, `robots.txt` | pour Google |
+
+Toutes ces pages sont **générées** par `tools/build.py` à partir de `content.js` : ne les modifie pas à la main.
 
 ## Voir le site en local
 
@@ -104,4 +115,8 @@ Puis ouvrir http://localhost:8000
 
 ## Mettre en ligne
 
-Glisser le dossier sur https://app.netlify.com/drop (gratuit), puis y relier ton nom de domaine.
+Le site est hébergé sur **GitHub Pages** (dépôt `maximebaldewyns-lang/Site-Web`), à l'adresse https://maximebaldewyns.com.
+
+1. Régénère les pages : `python3 tools/build.py`
+2. Dans **GitHub Desktop** : écris un résumé, clique sur **Commit to main**, puis **Push origin**.
+3. Le site en ligne est à jour en une minute environ (Cmd + Shift + R pour forcer le rechargement).

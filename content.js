@@ -28,6 +28,9 @@
  *    video     YouTube, Vimeo or public Facebook video/reel link (optional; leave "" if none yet).
  *              The hover preview only works with YouTube (or a "preview" clip, see below).
  *    cover     cover image: path to a file in the images/ folder, e.g. "images/my-project.jpg"
+ *    date      publication date "YYYY-MM-DD" (optional, used by Google for the video)
+ *    description  one or two sentences about the project (optional; shown by Google in search
+ *              results — without it a sentence is written automatically from title, client and role)
  *    credits   list of extra credits shown on the project page (optional)
  *    stills    list of extra images shown under the video (optional)
  *    preview   short silent clip played when the mouse is over the cover (optional),
@@ -35,6 +38,9 @@
  *    previewStart  second at which the YouTube hover preview starts (optional, default 0)
  *    previewZoom   zoom of the YouTube hover preview (optional, default 1.2; 1.4 hides the black bars
  *                  of a cinemascope or 4:3 video)
+ *
+ *  After editing this file, rebuild the pages (titles, Google data, sitemap) with:
+ *      python3 tools/build.py
  */
 
 const SITE = {
@@ -44,11 +50,13 @@ const SITE = {
   email: "contact@maximebaldewyns.com",
   phone: "",
   location: "Belgium",
+  url: "https://maximebaldewyns.com",
+  googleVerification: "",   // code from Google Search Console ("HTML tag" method), e.g. "AbC123…"
   reel: "",   // showreel link (Vimeo or YouTube); the "reel" tab appears once it is filled
   social: {
     instagram: "",
     vimeo: "",
-    imdb: "",
+    imdb: "https://www.imdb.com/name/nm10255860/",
     linkedin: ""
   },
   about: "Maxime Baldewyns is a director, director of photography and camera operator working across commercials, music videos, corporate films, events and narrative projects.",
@@ -76,6 +84,7 @@ const PROJECTS = [
     category: "events",
     role: "Director, Camera Operator & Editor",
     video: "https://www.youtube.com/watch?v=xDq94wBVHU8",
+    date: "2026-10-16",
     cover: "images/brosella-2026.jpg",
   },
   {
@@ -85,6 +94,7 @@ const PROJECTS = [
     category: "music-videos",
     role: "Director & Editor",
     video: "https://www.youtube.com/watch?v=kOtqKGNVBa0",
+    date: "2020-09-04",
     cover: "images/elia-rose-love-is-all-i-need.jpg",
     previewZoom: 1.4,
   },
@@ -95,6 +105,7 @@ const PROJECTS = [
     category: "corporate",
     role: "Director & Editor",
     video: "https://www.youtube.com/watch?v=3GSNd_CkULE",
+    date: "2026-09-08",
     cover: "images/totalenergies-lubriclean.jpg",
   },
   {
@@ -104,6 +115,7 @@ const PROJECTS = [
     category: "music-videos",
     role: "Director & Editor",
     video: "https://www.youtube.com/watch?v=Cd9SZyTLDIE",
+    date: "2022-12-19",
     cover: "images/olive-accro.jpg",
     previewZoom: 1.4,
   },
@@ -114,6 +126,7 @@ const PROJECTS = [
     category: "music-videos",
     role: "Director & Camera Operator",
     video: "https://www.youtube.com/watch?v=gZRcvW_QjB0",
+    date: "2026-06-30",
     cover: "images/midnight-the-stars-and-you.jpg",
   },
   {
@@ -123,6 +136,7 @@ const PROJECTS = [
     category: "events",
     role: "Director, Camera Operator & Editor",
     video: "https://www.youtube.com/watch?v=jhJh5DKRbJI",
+    date: "2025-09-16",
     cover: "images/brosella-2025.jpg",
   },
   {
@@ -132,6 +146,7 @@ const PROJECTS = [
     category: "music-videos",
     role: "Director & Editor",
     video: "https://www.youtube.com/watch?v=W7G8yetS4O8",
+    date: "2025-03-26",
     cover: "images/ground-zero.jpg",
     previewZoom: 1.4,
   },
@@ -142,6 +157,7 @@ const PROJECTS = [
     category: "music-videos",
     role: "Director & Camera Operator",
     video: "https://www.youtube.com/watch?v=DidMTWhQLoM",
+    date: "2026-09-07",
     cover: "images/tcha-limberger-cuando-yo-me-muera.jpg",
   },
   {
@@ -151,6 +167,7 @@ const PROJECTS = [
     category: "music-videos",
     role: "Director",
     video: "https://www.youtube.com/watch?v=EY0tZB_D5nE",
+    date: "2024-01-08",
     cover: "images/lorenzo-di-maio-the-chase.jpg",
   },
   {
@@ -160,6 +177,7 @@ const PROJECTS = [
     category: "music-videos",
     role: "DOP & Editor",
     video: "https://www.youtube.com/watch?v=oSzTUz5vdHI",
+    date: "2022-06-17",
     cover: "images/olive-l-ere-de-rien.jpg",
   },
   {
@@ -178,6 +196,7 @@ const PROJECTS = [
     category: "corporate",
     role: "Director, DOP & Editor",
     video: "https://www.youtube.com/watch?v=ORj2DsxwA6Q",
+    date: "2026-09-13",
     cover: "images/trg-saison-26-27.jpg",
   },
   {
@@ -187,6 +206,7 @@ const PROJECTS = [
     category: "corporate",
     role: "Director, DOP & Editor",
     video: "https://www.youtube.com/watch?v=rKUwpS0yb0I",
+    date: "2026-02-16",
     cover: "images/trg-secrets.jpg",
     previewZoom: 1.4,
   },
@@ -197,6 +217,7 @@ const PROJECTS = [
     category: "corporate",
     role: "Director, DOP & Editor",
     video: "https://www.youtube.com/watch?v=5GkC_PJpU58",
+    date: "2025-10-27",
     cover: "images/trg-glenn.jpg",
   },
   {
@@ -206,6 +227,7 @@ const PROJECTS = [
     category: "corporate",
     role: "Camera Operator & Editor",
     video: "https://www.youtube.com/watch?v=zHUwTVhNe08",
+    date: "2026-03-30",
     cover: "images/trg-l-ecume-des-jours.jpg",
   },
   {
@@ -215,6 +237,7 @@ const PROJECTS = [
     category: "events",
     role: "Director, DOP & Editor",
     video: "https://www.youtube.com/watch?v=SrCy4lrNBPk",
+    date: "2024-06-19",
     cover: "images/brosella-bxl-ldn-interplay.jpg",
   },
   {
@@ -224,6 +247,7 @@ const PROJECTS = [
     category: "corporate",
     role: "Director, DOP & Editor",
     video: "https://www.youtube.com/watch?v=Kn1q0F4GRmU",
+    date: "2025-04-15",
     cover: "images/jean-paul-lespagnard-interview.jpg",
   },
   {
@@ -233,6 +257,7 @@ const PROJECTS = [
     category: "events",
     role: "DOP & Camera Operator",
     video: "https://www.youtube.com/watch?v=S4zipT09Sbw",
+    date: "2026-09-08",
     cover: "images/ethglobal-brussels.jpg",
   },
 ];
