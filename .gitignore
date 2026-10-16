@@ -1,0 +1,6 @@
+# macOS system files (created on external drives, never needed online)
+._*
+.DS_Store
+
+# local tools
+.claude/
