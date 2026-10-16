@@ -51,7 +51,7 @@ const SITE = {
   phone: "",
   location: "Belgium",
   url: "https://maximebaldewyns.com",
-  googleVerification: "",   // code from Google Search Console ("HTML tag" method), e.g. "AbC123…"
+  googleVerification: "yjaRomi900eRCdcXmzLBTBaO9Q9WLAX5LVMBJV9R9tA",   // code from Google Search Console ("HTML tag" method), e.g. "AbC123…"
   reel: "",   // showreel link (Vimeo or YouTube); the "reel" tab appears once it is filled
   social: {
     instagram: "",
